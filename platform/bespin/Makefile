@@ -1,48 +1,51 @@
-.PHONY: all
-all: default
-
 include ../../global.mk
 include ${BUILDRUMP_TOOLFLAGS}
 
-OBJ_DIR ?= $(CURDIR)/obj
+default: all
+
+ARCHDIR?= ${MACHINE}
+HW_MACHINE_ARCH?= ${MACHINE_GNU_ARCH}
+
+LDSCRIPT:=	$(abspath arch/${ARCHDIR}/kern.ldscript)
+SRCS+=		init.c
+
 include ../Makefile.inc
-
-.PHONY: default
-default: prepare links ${MAINOBJ} ${TARGETS}
-
+# include arch/${ARCHDIR}/Makefile.inc
 
 # Disable PIE, but need to check if compiler supports it
 LDFLAGS-$(call cc-option,-no-pie) += -no-pie
 LDFLAGS += $(LDFLAGS-y)
 
-CFLAGS += -fno-builtin
-rump-src-y += init.c
+OBJS:=	$(patsubst %.c,${RROBJ}/platform/%.o,${SRCS}) \
+	$(patsubst %.S,${RROBJ}/platform/%.o,${ASMS})
 
-RUMP_OBJS= $(patsubst %.c,$(OBJ_DIR)/%.o,$(rump-src-y))
+.PHONY:	clean cleandir all
 
-$(OBJ_DIR)/%.o: %.c $(HDRS) $(EXTRA_DEPS)
-	$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $@
+all:  links ${TARGETS}
 
-${RROBJ}/include/hw/machine:
-	@mkdir -p ${RROBJ}/include/hw
+${RROBJ}/include/bespin/machine:
+	@mkdir -p ${RROBJ}/include/bespin
 	@ln -sf $(shell pwd)/include/arch/${HW_MACHINE_ARCH} $@
 
 ${RROBJ}/include/bmk-pcpu:
-	@ln -sf ${RROBJ}/include/hw/machine $@
+	@ln -sf ${RROBJ}/include/bespin/machine $@
 
-links: ${RROBJ}/include/hw/machine ${RROBJ}/include/bmk-pcpu
+links: ${RROBJ}/include/bespin/machine ${RROBJ}/include/bmk-pcpu
 
+# ${RROBJ}/platform/%.o: %.c
+# 	${CC} ${CPPFLAGS} ${CFLAGS} -c $< -o $@
 
-.PHONY: prepare
-prepare:
-	mkdir -p $(OBJ_DIR)/lib
+# ${RROBJ}/platform/%.o: %.S
+# 	${CC} -D_LOCORE ${CPPFLAGS} ${CFLAGS} -c $< -o $@
 
-$(MAINOBJ): $(RUMP_OBJS) platformlibs
-	$(CC) -Wl,-r $(CFLAGS) $(LDFLAGS) $(RUMP_OBJS) -nostdlib -o $@
+# ${MAINOBJ}: ${OBJS} platformlibs
+# 	${CC} -nostdlib ${CFLAGS} ${LDFLAGS} -Wl,-r ${OBJS} -o $@ \
+# 	    -L${RROBJLIB}/libbmk_core -L${RROBJLIB}/libbmk_rumpuser \
+# 	    -Wl,--whole-archive -lbmk_rumpuser -lbmk_core -Wl,--no-whole-archive
+# 	${OBJCOPY} -w -G bmk_* -G rumpuser_* -G jsmn_* \
+# 	    -G rumprun_platform_rumpuser_init -G _start $@
 
-.PHONY: clean arch_clean
-
-clean:	commonclean
-	rm -f $(OBJ_DIR)/*.o $(MAINOBJ)
+clean: commonclean
+	rm -f ${OBJS_BMK} include/bespin/machine buildtest ${MAINOBJ}
 
 cleandir: clean
