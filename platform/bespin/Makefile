@@ -26,6 +26,8 @@ all:  links ${TARGETS}
 ${RROBJ}/include/bespin/machine:
 	@mkdir -p ${RROBJ}/include/bespin
 	@ln -sf $(shell pwd)/include/arch/${HW_MACHINE_ARCH} $@
+	#@ln -sf $(shell pwd)/include/arch/${HW_MACHINE_ARCH}/md.h $@
+	#@ln -sf $(shell pwd)/include/arch/${HW_MACHINE_ARCH}/pcpu.h $@
 
 ${RROBJ}/include/bmk-pcpu:
 	@ln -sf ${RROBJ}/include/bespin/machine $@
