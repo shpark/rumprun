@@ -10,7 +10,7 @@ TARGETS=	rumpkernlibs
 # but building it always makes testing kernonly easier
 TARGETS+=	compiler_rt
 # INSTALLTGTS+=	librumpkern_bmktc_install
-# INSTALLTGTS+=	librumpkern_mman_install
+INSTALLTGTS+=	librumpkern_mman_install
 
 ifneq (${KERNONLY},true)
 TARGETS+=	userlibs
@@ -92,7 +92,7 @@ ${RROBJ}/bmk.ldscript: ${LDSCRIPT}
 commonlibs: platformlibs userlibs
 userlibs: ${PSEUDOSTUBS}.o ${LIBUNWIND}
 platformlibs: ${RROBJ}/bmk.ldscript
-rumpkernlibs: 
+rumpkernlibs: ${RROBJLIB}/librumpkern_mman/librumpkern_mman.a
 compiler_rt: ${RROBJLIB}/libcompiler_rt/libcompiler_rt.a
 
 .PHONY: buildtest
