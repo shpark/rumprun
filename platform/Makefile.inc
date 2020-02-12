@@ -71,7 +71,7 @@ endef
 # $(eval $(call BUILDLIB_target,libbmk_core,${PLIBDIR}))
 # $(eval $(call BUILDLIB_target,libbmk_rumpuser,${PLIBDIR}))
 # $(eval $(call BUILDLIB_target,librumpkern_bmktc,${PLIBDIR}))
-# $(eval $(call BUILDLIB_target,librumpkern_mman,${PLIBDIR}))
+$(eval $(call BUILDLIB_target,librumpkern_mman,${PLIBDIR}))
 $(eval $(call BUILDLIB_target,librumprun_base,${PLIBDIR}))
 # $(eval $(call BUILDLIB_target,librumprun_tester,${PLIBDIR}))
 # $(eval $(call BUILDLIB_target,librumprunfs_base,${PLIBDIR}))
