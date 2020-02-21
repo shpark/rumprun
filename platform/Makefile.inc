@@ -120,7 +120,7 @@ tests: ${MAINOBJ} commonlibs
 
 .PHONY: installkern
 installkern:
-	install -m 0444 ${MAINOBJ} ${INSTALLDIR_LIBPLAT}
+#	install -m 0444 ${MAINOBJ} ${INSTALLDIR_LIBPLAT}
 	install -m 0444 ${LDSCRIPT} ${INSTALLDIR}/rumprun-${MACHINE_GNU_ARCH}/lib/${PLATFORM}.ldscript
 
 .PHONY: installuser
