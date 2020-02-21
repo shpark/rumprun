@@ -10,7 +10,7 @@ LDSCRIPT:=	$(abspath arch/${ARCHDIR}/kern.ldscript)
 SRCS+=		init.c
 
 include ../Makefile.inc
-# include arch/${ARCHDIR}/Makefile.inc
+include arch/${ARCHDIR}/Makefile.inc
 
 # Disable PIE, but need to check if compiler supports it
 LDFLAGS-$(call cc-option,-no-pie) += -no-pie

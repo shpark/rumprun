@@ -127,7 +127,7 @@ installkern:
 installuser:
 	install -m 0444 ${PSEUDOSTUBS}.o ${INSTALLDIR_LIBARCH}
 
-# INSTALLTGTS+=	installkern
+INSTALLTGTS+=	installkern
 ifneq (${KERNONLY},true)
 INSTALLTGTS+=	installuser
 endif
