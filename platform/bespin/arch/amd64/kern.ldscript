@@ -55,18 +55,19 @@ SECTIONS
 		*(.data)
 		*(.data.*)
 	}
-	.tdata : {
+	.tdata          : { 
 		_tdata_start = . ;
-		*(.tdata)
+		*(.tdata .tdata.*) 
 		_tdata_end = . ;
 	}
-	_edata = . ;
-	.tbss : {
+	_edata = . ;	
+	.tbss           : { 
 		_tbss_start = . ;
-		*(.tbss)
+		*(.tbss .tbss.*)
 		_tbss_end = . ;
 	}
 
+		
 	__bss_start = . ;
 	.bss :
 	AT (LOADADDR(.text) + (ADDR(.bss) - ADDR(.text)))
