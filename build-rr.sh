@@ -141,7 +141,8 @@ parseargs ()
 		if [ ${GITBRANCH} = "master" -o ${GITBRANCH} = "HEAD" ]; then
 			GITBRANCH=
 		else
-			GITBRANCH=-${GITBRANCH}
+			#GITBRANCH=-${GITBRANCH}
+			GITBRANCH=
 		fi
 	else
 		GITBRANCH=
