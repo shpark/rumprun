@@ -75,6 +75,7 @@ __weak_alias(rumprun_main8,rumprun_notmain);
 __weak_alias(rump_init_server,rumprun_enosys);
 
 int rumprun_cold = 1;
+static void ready(void) { /* NOP */ }
 
 void
 rumprun_boot(char *cmdline)
@@ -89,7 +90,7 @@ rumprun_boot(char *cmdline)
 	int rv, x;
 
 	rump_boot_setsigmodel(RUMP_SIGMODEL_IGNORE);
-	rump_init();
+	rump_init(ready);
 
 	/* mount /tmp before we let any userspace bits run */
 	rump_sys_mount(MOUNT_TMPFS, "/tmp", 0, &ta, sizeof(ta));
