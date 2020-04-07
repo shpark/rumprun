@@ -1,3 +1,6 @@
 [submodule "src-netbsd"]
 	path = src-netbsd
 	url = git@github.com:gz/src-netbsd.git
+[submodule "buildrump.sh"]
+	path = buildrump.sh
+	url = https://github.com/gz/buildrump.sh
