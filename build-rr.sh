@@ -592,6 +592,12 @@ setvars "$@"
 ${DObuild} && dobuild "$@"
 ${DOinstall} && doinstall
 
+# copy additional include files for leveldb
+cp ${RUMPSRC}/include/emmintrin.h ${RRDEST}/rumprun-${MACHINE_GNU_ARCH}/include/emmintrin.h
+cp ${RUMPSRC}/include/mm_malloc.h ${RRDEST}/rumprun-${MACHINE_GNU_ARCH}/include/mm_malloc.h
+cp ${RUMPSRC}/include/mmintrin.h ${RRDEST}/rumprun-${MACHINE_GNU_ARCH}/include/mmintrin.h
+cp ${RUMPSRC}/include/xmmintrin.h ${RRDEST}/rumprun-${MACHINE_GNU_ARCH}/include/xmmintrin.h
+
 # echo some useful information for the user
 echo
 echo '>>'

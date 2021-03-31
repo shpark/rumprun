@@ -390,6 +390,10 @@ for f in "$@"; do
 
 	${runcmd} ${RUMPBAKE_TOOLDIR}/bin/${RUMPBAKE_TUPLE}-objcopy	\
 	    --redefine-sym main=rumprun_main${objnum}			\
+	    --redefine-sym _Z17rumpuser_iovwriteiPK14rumpuser_iovecmlPm=rumpuser_iovwrite			\
+	    --redefine-sym _Z13rumpuser_openPKciPi=rumpuser_open			\
+	    --redefine-sym _Z14rumpuser_closei=rumpuser_close			\
+	    --redefine-sym _Z16rumpuser_iovreadiPK14rumpuser_iovecmlPm=rumpuser_iovread			\
 	    ${f} ${TMPDIR}/tmp${objnum}.obj
 	allobjs="${allobjs} ${TMPDIR}/tmp${objnum}.obj"
 	objnum=$((${objnum}+1))
