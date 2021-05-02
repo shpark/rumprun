@@ -23,16 +23,16 @@ OBJS:=	$(patsubst %.c,${RROBJ}/platform/%.o,${SRCS}) \
 
 all:  links ${TARGETS}
 
-${RROBJ}/include/bespin/machine:
-	@mkdir -p ${RROBJ}/include/bespin
+${RROBJ}/include/nrk/machine:
+	@mkdir -p ${RROBJ}/include/nrk
 	@ln -sf $(shell pwd)/include/arch/${HW_MACHINE_ARCH} $@
 	#@ln -sf $(shell pwd)/include/arch/${HW_MACHINE_ARCH}/md.h $@
 	#@ln -sf $(shell pwd)/include/arch/${HW_MACHINE_ARCH}/pcpu.h $@
 
 ${RROBJ}/include/bmk-pcpu:
-	@ln -sf ${RROBJ}/include/bespin/machine $@
+	@ln -sf ${RROBJ}/include/nrk/machine $@
 
-links: ${RROBJ}/include/bespin/machine ${RROBJ}/include/bmk-pcpu
+links: ${RROBJ}/include/nrk/machine ${RROBJ}/include/bmk-pcpu
 
 # ${RROBJ}/platform/%.o: %.c
 # 	${CC} ${CPPFLAGS} ${CFLAGS} -c $< -o $@
@@ -48,6 +48,6 @@ links: ${RROBJ}/include/bespin/machine ${RROBJ}/include/bmk-pcpu
 # 	    -G rumprun_platform_rumpuser_init -G _start $@
 
 clean: commonclean
-	rm -f ${OBJS_BMK} include/bespin/machine buildtest ${MAINOBJ}
+	rm -f ${OBJS_BMK} include/nrk/machine buildtest ${MAINOBJ}
 
 cleandir: clean
