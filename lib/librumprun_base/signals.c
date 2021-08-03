@@ -69,7 +69,9 @@ _sys___sigprocmask14(int how, const sigset_t *set, sigset_t *oset)
 {
 	static int warned = 0;
 
-	STUBWARN();
+	// HACK(shpark): Prevent GPF when running with KVM.
+	// Root cause is unknown and this issue is under investigation.
+	// STUBWARN();
 
 	/* should probably track contents, maybe later */
 	if (oset)
